@@ -3,6 +3,7 @@ import type { Usage, UsageWindow } from "./usage.ts";
 /** The subset of the Pi theme the renderer uses. */
 export interface Style {
 	fg(color: "dim", text: string): string;
+	bold(text: string): string;
 	italic(text: string): string;
 }
 

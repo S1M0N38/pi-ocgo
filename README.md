@@ -13,12 +13,14 @@ pi install git:github.com/S1M0N38/pi-ocgo
 ```
 
 ```
+OpenCode Go Usage
+
 Rolling:   3% used · resets in 2h 5m
 Weekly:   47% used · resets in 2d 09h
 Monthly: 100% used · resets in 26d 05h
 ```
 
-Labels and the `used · resets in` connective are dim, the countdown is italic, percentages stay plain. The block is written to the transcript as a custom entry, so it never enters the LLM context.
+A bold title sits above the rows, like `/session`. Labels and the `used · resets in` connective are dim, the countdown is italic, percentages stay plain. The block is written to the transcript as a custom entry, so it never enters the LLM context.
 
 ## Requirements
 

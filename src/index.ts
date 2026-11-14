@@ -13,13 +13,17 @@ const WINDOWS: Array<{ label: string; key: keyof Usage; days: boolean }> = [
 ];
 
 function render(usage: Usage, style: Style): string {
-	return WINDOWS.map(
-		({ label, key, days }) =>
-			`${style.fg("dim", label.padEnd(9))}${formatPercent(usage[key]).padStart(4)}${style.fg(
-				"dim",
-				" used · resets in ",
-			)}${style.italic(formatReset(usage[key], days))}`,
-	).join("\n");
+	return [
+		style.bold("OpenCode Go Usage"),
+		"",
+		...WINDOWS.map(
+			({ label, key, days }) =>
+				`${style.fg("dim", label.padEnd(9))}${formatPercent(usage[key]).padStart(4)}${style.fg(
+					"dim",
+					" used · resets in ",
+				)}${style.italic(formatReset(usage[key], days))}`,
+		),
+	].join("\n");
 }
 
 export default function registerOcgoUsage(pi: ExtensionAPI): void {
