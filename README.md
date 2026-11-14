@@ -19,8 +19,6 @@ Weekly:   47% used · resets in 2d 09h
 Monthly: 100% used · resets in 26d 05h
 ```
 
-The block is written to the transcript as a custom entry, so it never enters the LLM context. Its title, dim labels and italic countdown follow the `/session` style.
-
 ## Accounts
 
 Optional, for more than one Go subscription. Keep the keys in the keychain and let the extension pick which one pi uses. `ocgo.json` sits next to `auth.json` — `~/.pi/agent/ocgo.json`, or `$PI_CODING_AGENT_DIR/ocgo.json` when that is set:
@@ -36,13 +34,11 @@ Optional, for more than one Go subscription. Keep the keys in the keychain and l
 ```
 
 ```
-/ocgo-account             # active: personal · accounts: university, personal
+/ocgo-account             # active: personal · accounts: ...
 /ocgo-account university  # switch
 ```
 
-Tab completes the identities. A switch copies the identity's value into `opencode-go.key` in `auth.json` and nothing else: a `!command` stays a reference, so no secret passes through the extension. It takes effect on the next request, no restart.
-
-If `auth.json` stops matching `active` — after a `/login`, say — `/ocgo-account` reports it, and re-running the switch repairs it. Identities are added and removed by hand; the command appears once `ocgo.json` exists.
+A switch copies the identity's value into `opencode-go.key` in `auth.json` and nothing else: a `!command` stays a reference, so no secret passes through the extension. It takes effect on the next request, no restart or reload.
 
 ## Requirements
 
@@ -78,5 +74,3 @@ pi install ~/Code/github.com/S1M0N38/pi-ocgo   # loads from the path, edits are 
 pi remove ~/Code/github.com/S1M0N38/pi-ocgo    # back to the published clone
 pi install git:github.com/S1M0N38/pi-ocgo
 ```
-
-Pi identifies a local package by absolute path, so remove the git entry first or both load. `npm install && npm run typecheck` type-checks against installed peer dependencies; dev dependencies are not fetched for git packages.
