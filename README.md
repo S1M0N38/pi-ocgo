@@ -1,6 +1,6 @@
 # pi-ocgo
 
-Minimal [pi](https://pi.dev) extension that shows your OpenCode Go subscription usage.
+Minimal [pi](https://pi.dev) extension that shows your OpenCode Go subscription usage and rotates between several subscriptions.
 
 ```bash
 pi install git:github.com/S1M0N38/pi-ocgo
@@ -20,6 +20,29 @@ Monthly: 100% used · resets in 26d 05h
 ```
 
 A bold title sits above the rows, like `/session`. Labels and the `used · resets in` connective are dim, the countdown is italic, percentages stay plain. The block is written to the transcript as a custom entry, so it never enters the LLM context.
+
+## Accounts
+
+Optional. With more than one Go subscription, keep the keys in the keychain and let the extension pick which one pi uses. `ocgo.json` lives next to `auth.json`, at `$PI_CODING_AGENT_DIR/ocgo.json` (`~/.pi/agent/ocgo.json` by default):
+
+```json
+{
+  "accounts": {
+    "university": "!security find-generic-password -a simo -s opencode-university -w",
+    "personal": "!security find-generic-password -a simo -s opencode-personal -w"
+  },
+  "active": "personal"
+}
+```
+
+```
+/ocgo-account             # active: personal · accounts: university, personal
+/ocgo-account university  # switch
+```
+
+Tab completes the identities. The value is copied verbatim into `opencode-go.key` in `auth.json`, so a `!command` (or `$ENV_VAR`, or a literal key) stays a reference and no secret passes through the extension. Everything else in `auth.json` is preserved, and pi re-reads it on the next request, so the switch needs no restart.
+
+`active` is rewritten on every switch. When `auth.json` no longer holds the active identity's value — after a `/login`, say — `/ocgo-account` reports the drift and re-running it repairs the file. Identities are added and removed by hand: the command only exists while `ocgo.json` does.
 
 ## Requirements
 
