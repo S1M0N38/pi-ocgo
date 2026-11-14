@@ -14,7 +14,6 @@ pi install git:github.com/S1M0N38/pi-ocgo
 
 ```
 OpenCode Go Usage
-
 Rolling:   3% used · resets in 2h 5m
 Weekly:   47% used · resets in 2d 09h
 Monthly: 100% used · resets in 26d 05h
