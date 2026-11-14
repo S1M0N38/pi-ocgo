@@ -19,11 +19,11 @@ Weekly:   47% used · resets in 2d 09h
 Monthly: 100% used · resets in 26d 05h
 ```
 
-A bold title sits above the rows, like `/session`. Labels and the `used · resets in` connective are dim, the countdown is italic, percentages stay plain. The block is written to the transcript as a custom entry, so it never enters the LLM context.
+The block is written to the transcript as a custom entry, so it never enters the LLM context. Its title, dim labels and italic countdown follow the `/session` style.
 
 ## Accounts
 
-Optional. With more than one Go subscription, keep the keys in the keychain and let the extension pick which one pi uses. `ocgo.json` lives next to `auth.json`, at `$PI_CODING_AGENT_DIR/ocgo.json` (`~/.pi/agent/ocgo.json` by default):
+Optional, for more than one Go subscription. Keep the keys in the keychain and let the extension pick which one pi uses. `ocgo.json` sits next to `auth.json` — `~/.pi/agent/ocgo.json`, or `$PI_CODING_AGENT_DIR/ocgo.json` when that is set:
 
 ```json
 {
@@ -40,9 +40,9 @@ Optional. With more than one Go subscription, keep the keys in the keychain and 
 /ocgo-account university  # switch
 ```
 
-Tab completes the identities. The value is copied verbatim into `opencode-go.key` in `auth.json`, so a `!command` (or `$ENV_VAR`, or a literal key) stays a reference and no secret passes through the extension. Everything else in `auth.json` is preserved, and pi re-reads it on the next request, so the switch needs no restart.
+Tab completes the identities. A switch copies the identity's value into `opencode-go.key` in `auth.json` and nothing else: a `!command` stays a reference, so no secret passes through the extension. It takes effect on the next request, no restart.
 
-`active` is rewritten on every switch. When `auth.json` no longer holds the active identity's value — after a `/login`, say — `/ocgo-account` reports the drift and re-running it repairs the file. Identities are added and removed by hand: the command only exists while `ocgo.json` does.
+If `auth.json` stops matching `active` — after a `/login`, say — `/ocgo-account` reports it, and re-running the switch repairs it. Identities are added and removed by hand; the command appears once `ocgo.json` exists.
 
 ## Requirements
 
@@ -52,7 +52,7 @@ A Go subscription with the `opencode-go` provider configured in pi:
 pi auth login opencode-go
 ```
 
-The extension reads that same API key through pi's model registry (`ctx.modelRegistry.getProviderAuth("opencode-go")`), including `!command` and `$ENV_VAR` key sources. It never stores or prints the key.
+The extension reads the key through pi's model registry, including `!command` and `$ENV_VAR` sources, and never stores or prints it.
 
 ## Notes
 
@@ -80,5 +80,3 @@ pi install git:github.com/S1M0N38/pi-ocgo
 ```
 
 Pi identifies a local package by absolute path, so remove the git entry first or both load. `npm install && npm run typecheck` type-checks against installed peer dependencies; dev dependencies are not fetched for git packages.
-
-`index.ts` is the package entry point; the implementation lives in `src/`.
