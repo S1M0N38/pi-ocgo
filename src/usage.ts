@@ -5,8 +5,8 @@ export const USAGE_URL = "https://opencode.ai/zen/go/v1/usage";
 export interface UsageWindow {
 	/** Percentage of the window used, 0-100. */
 	percent: number;
-	/** Seconds until the window resets. */
-	resetInSec: number;
+	/** Epoch milliseconds at which the window resets. */
+	resetsAt: number;
 }
 
 export interface Usage {
@@ -22,13 +22,13 @@ type RawWindow = Record<string, unknown> | undefined;
  * shape seen so far: `usage.rolling`, `rollingUsage`, `resetsAt` as an ISO string
  * or epoch milliseconds, and `resetInSec`.
  */
-function toWindow(raw: RawWindow, now: number): UsageWindow {
+export function toWindow(raw: RawWindow, now: number): UsageWindow {
 	const percent = number(raw?.percent) ?? number(raw?.usagePercent) ?? 0;
 	const resetsAt = typeof raw?.resetsAt === "string" ? Date.parse(raw.resetsAt) : number(raw?.resetsAt);
-	const resetInSec = number(raw?.resetInSec) ?? (resetsAt === undefined ? 0 : (resetsAt - now) / 1000);
+	const fallback = now + (number(raw?.resetInSec) ?? 0) * 1000;
 	return {
 		percent: Math.min(100, Math.max(0, Math.round(percent))),
-		resetInSec: Math.max(0, Math.round(resetInSec)),
+		resetsAt: resetsAt !== undefined && Number.isFinite(resetsAt) ? resetsAt : fallback,
 	};
 }
 
