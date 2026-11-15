@@ -19,6 +19,34 @@ pi install git:github.com/S1M0N38/pi-ocgo
 pi remove git:github.com/S1M0N38/pi-ocgo
 ```
 
+## Usage
+
+```
+/ocgo-usage
+```
+
+```
+OpenCode Go Usage
+Rolling:   3% used · resets in 2h 5m
+Weekly:   47% used · resets in 2d 09h
+Monthly: 100% used · resets in 26d 05h
+```
+
+```
+/ocgo-account             # active: personal · accounts: ...
+/ocgo-account university  # switch
+```
+
+Account rotation needs `ocgo.json` — see [Configuration](#configuration). `/ocgo-account` reports
+`active: none` before the first switch, flags an identity that is no longer in `accounts`, and
+flags drift when `auth.json` no longer holds the active identity's key. A switch copies the
+identity's value into `opencode-go.key` in `auth.json` and nothing else: a `!command` stays a
+reference, so no secret passes through the extension. It takes effect on the next request, with
+no restart or reload.
+
+Limits are per model: the 5-hour window is 20% of your monthly allowance, weekly 50%,
+monthly 100%. See [Go docs](https://opencode.ai/docs/console/go).
+
 ## Configuration
 
 Optional, for more than one Go subscription. Keep the keys in the keychain and let the extension pick which one pi uses. `ocgo.json` sits next to `auth.json` — `~/.pi/agent/ocgo.json`, or `$PI_CODING_AGENT_DIR/ocgo.json` when that is set:
@@ -39,33 +67,6 @@ this extension.
 
 `/ocgo-account` is registered only when this file exists. Delete the file to remove the
 command; nothing else in the extension depends on it.
-
-## Usage
-
-```
-/ocgo-usage
-```
-
-```
-OpenCode Go Usage
-Rolling:   3% used · resets in 2h 5m
-Weekly:   47% used · resets in 2d 09h
-Monthly: 100% used · resets in 26d 05h
-```
-
-```
-/ocgo-account             # active: personal · accounts: ...
-/ocgo-account university  # switch
-```
-
-`/ocgo-account` reports `active: none` before the first switch, flags an identity that is
-no longer in `accounts`, and flags drift when `auth.json` no longer holds the active
-identity's key. A switch copies the identity's value into `opencode-go.key` in `auth.json`
-and nothing else: a `!command` stays a reference, so no secret passes through the
-extension. It takes effect on the next request, with no restart or reload.
-
-Limits are per model: the 5-hour window is 20% of your monthly allowance, weekly 50%,
-monthly 100%. See [Go docs](https://opencode.ai/docs/console/go).
 
 ## Contributing
 
