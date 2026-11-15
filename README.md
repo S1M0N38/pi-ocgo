@@ -69,4 +69,6 @@ monthly 100%. See [Go docs](https://opencode.ai/docs/console/go).
 
 ## Contributing
 
-If you are a coding agent and you intend to change anything in this repository, read [CONTRIBUTING.md](CONTRIBUTING.md) first. It holds the local development loop, the checks, and a pointer to [ARCHITECTURE.md](ARCHITECTURE.md).
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [ARCHITECTURE.md](ARCHITECTURE.md)
+- [AGENTS.md](AGENTS.md)
