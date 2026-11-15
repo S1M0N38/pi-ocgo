@@ -47,7 +47,7 @@ Monthly: 100% used · resets in 26d 05h
 ```
 
 ```
-/ocgo-account             # active: personal · accounts: ...
+/ocgo-account             # active: personal · accounts: university, personal
 /ocgo-account university  # switch
 ```
 
