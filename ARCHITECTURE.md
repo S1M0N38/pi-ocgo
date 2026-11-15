@@ -69,5 +69,11 @@ the registered entry renderer draws it with a single `Text` component: bold titl
 aligned label / percent columns and a dim connective with an italic countdown. Because the
 usage data is in the entry, a reloaded session renders the same numbers without refetching.
 
+In a multi-account setup — `ocgo.json` with more than one identity — the entry also carries
+`account: { active, identities }` and the renderer adds a dim `Account:` line above the
+windows, `none` until the first `/ocgo-account` switch. One identity or no `ocgo.json` omits
+the line, and the entry shape is otherwise unchanged, so entries written before the field
+existed render as before. Reading `ocgo.json` never fails the command: errors drop the line.
+
 `formatReset` renders `2h 5m` for the rolling window and `1d 05h` for weekly and monthly;
 a missing or unparsable `resetsAt` degrades to `0h 0m` rather than throwing.
